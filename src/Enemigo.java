@@ -19,14 +19,11 @@ public class Enemigo {
     }
 
     public void recibirDanio(int cantidad) {
-        // TODO semana 3:
-        // restar vida al enemigo
-        // la vida no debe quedar por debajo de 0
+        vida -= cantidad;
+        vida = Math.max(0, vida);
     }
 
     public boolean estaVivo() {
-        // TODO semana 3:
-        // devolver true si el enemigo sigue vivo, false si no
-        return false;
+        return vida>0;
     }
 }

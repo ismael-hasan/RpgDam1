@@ -22,7 +22,13 @@ public class TestPersonajeInventario {
         System.out.println("Inventario después de añadir objetos:");
         p.mostrarInventario();
 
-        p.usarObjeto("Carne");
+
+        try {
+            p.usarObjeto("Carne");
+        } catch (ObjetoNoDisponibleException e) {
+            System.out.println("TEST FALLA: no se pudo usar carne.");
+            return;
+        }
 
         boolean test4 = !p.tieneObjeto("Carne");
 

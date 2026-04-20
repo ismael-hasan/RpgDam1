@@ -55,8 +55,11 @@ public class Juego {
                     buscarEnemigo();
                     break;
                 case 3:
-                    // TODO: ya os va a saltar error, recordad hacer try-catch
-                    jugador.descansar();
+                    try {
+                        jugador.descansar();
+                    } catch (VidaAlMaximoException vame) {
+                        System.out.println("No se puede descansar. La vida está al máximo: " + vame.getVidaActual());
+                    }
                     break;
                 case 4:
                     jugador.mostrarInventario();

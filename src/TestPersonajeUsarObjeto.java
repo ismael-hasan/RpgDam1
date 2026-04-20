@@ -10,14 +10,24 @@ public class TestPersonajeUsarObjeto {
         System.out.println("Inventario inicial:");
         p.mostrarInventario();
 
-        p.usarObjeto("Pocion");
+        try {
+            p.usarObjeto("Pocion");
+        } catch (ObjetoNoDisponibleException e) {
+            System.out.println("TEST FALLA: no se ha podido usar Pocion");
+            return;
+        }
 
         System.out.println("Inventario tras usar una poción:");
         p.mostrarInventario();
 
         boolean test1 = p.tieneObjeto("Pocion");
 
-        p.usarObjeto("Pocion");
+        try {
+            p.usarObjeto("Pocion");
+        } catch (ObjetoNoDisponibleException e) {
+            System.out.println("TEST FALLA: no se ha podido usar Pocion");
+            return;
+        }
 
         boolean test2 = !p.tieneObjeto("Pocion");
 

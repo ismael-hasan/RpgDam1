@@ -41,25 +41,54 @@ public class Personaje {
     // =========================
 
     public void mostrarEstado() {
-        // TODO semana 3:
-        // mostrar todos los datos principales del personaje
+        // Podríamos usar String, pero introducimos StringBuffer como una manera más eficiente
+        // de manejar concatenar cadenas, etc.
+        StringBuffer habilidadesEnString = new StringBuffer();
+        for (String habilidad:habilidades) {
+            habilidadesEnString.append(habilidad).append(" - ");
+        }
+        // Opcionalmente, podríamos ponerlo más bonito eliminando el " - " que añadimos al final (si lo hemos añadido)
+
+        StringBuffer inventarioEnString = new StringBuffer();
+
+        for (String objeto: inventario.keySet()) {
+            inventarioEnString.append(objeto + ": " + inventario.get(objeto) + " - ");
+        }
+        // Opcionalmente, podríamos ponerlo más bonito eliminando el " - " que añadimos al final (si lo hemos añadido)
+
+
+        System.out.println("Personaje: " +
+                "\tNombre:'" + nombre + '\'' +
+                "\n\tVida=" + vida +
+                "\n\tVidaMax=" + vidaMax +
+                "\n\tAtaque=" + ataque +
+                "\n\tDefensa=" + defensa +
+                "\n\tNivel=" + nivel +
+                "\n\tExperiencia=" + experiencia +
+                "\n\tHabilidades=" + habilidadesEnString.toString() +
+                "\n\tInventario=" + inventarioEnString.toString());
     }
 
-    public void descansar() {
-        // TODO semana 3:
-        // si la vida ya está al máximo, lanzar excepción
-        // si no, recuperar vida
+    public void descansar() throws VidaAlMaximoException {
+        if (vida==vidaMax) {
+            throw new VidaAlMaximoException(vida);
+        } else {
+            vida = vidaMax;
+        }
     }
 
     public void ganarExperiencia(int cantidad) {
-        // TODO semana 3:
-        // sumar experiencia
+        // Habría que comprobar que la experiencia es positiva, pero no se ha pedido en el enunciado.
+        // Como solución, no daremos error, simplemente no sumamos si es negativa.
+        experiencia += Math.max(0,cantidad);
     }
 
     public void atacar(Enemigo enemigo)  {
-        // TODO semana 3:
-        // si el personaje no puede atacar por estar muerto, lanzar excepción "PersonajeMuertoException"
-        // si no, dañar al enemigo
+        if (vida<=0) {
+            throw new PersonajeMuertoException();
+        } else {
+            enemigo.recibirDanio(ataque);
+        }
     }
 
     // =========================
@@ -137,11 +166,23 @@ public class Personaje {
         return inventario.containsKey(objeto);
     }
 
-    public void usarObjeto(String objeto) {
-        // TODO semana 3:
-        // si no existe el objeto, lanzar excepción ObjetoNoDisponibleException
-        // si su cantidad es 0 o menor, lanzar excepción ObjetoNoDisponibleException y eliminarlo
-        // si se puede usar, restar 1
-        // si queda a 0, eliminarlo del inventario
+    public void usarObjeto(String objeto) throws ObjetoNoDisponibleException {
+
+        if (!inventario.containsKey(objeto)) {
+            throw new ObjetoNoDisponibleException(objeto);
+        } else {
+            if (inventario.get(objeto)<=0) {
+                inventario.remove(objeto);
+                throw new ObjetoNoDisponibleException(objeto);
+            } else {
+                int cantidadTrasUsar = inventario.get(objeto)-1;
+                System.out.println("Usando " + objeto + ". Quedan " + cantidadTrasUsar);
+                if (cantidadTrasUsar==0) {
+                    System.out.println("Eliminando el objeto del inventario.");
+                    inventario.remove(objeto);
+                }
+            }
+        }
+
     }
 }
