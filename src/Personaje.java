@@ -83,7 +83,7 @@ public class Personaje {
         experiencia += Math.max(0,cantidad);
     }
 
-    public void atacar(Enemigo enemigo)  {
+    public void atacar(Enemigo enemigo) throws PersonajeMuertoException {
         if (vida<=0) {
             throw new PersonajeMuertoException();
         } else {
@@ -219,7 +219,8 @@ public class Personaje {
                 }
             }
         }
-
-
+    }
+    public void recibirDanho(int cantidad) {
+        vida -= Math.max(0, cantidad-defensa);
     }
 }

@@ -1,3 +1,3 @@
-public class PersonajeMuertoException {
+public class PersonajeMuertoException extends Exception {
 
 }

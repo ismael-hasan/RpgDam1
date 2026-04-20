@@ -26,4 +26,8 @@ public class Enemigo {
     public boolean estaVivo() {
         return vida>0;
     }
+
+    public int getAtaque() {
+        return ataque;
+    }
 }

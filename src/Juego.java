@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -117,8 +118,7 @@ public class Juego {
         System.out.println("Has encontrado a un enemigo:");
         enemigo.mostrarInfo();
 
-        // TODO semana 3:
-        // llamar a un combate sencillo contra el enemigo
+        combatir(enemigo);
     }
 
     private void mostrarEnemigosEncontrados() {
@@ -131,21 +131,47 @@ public class Juego {
     }
 
     private void guardarPersonaje() {
-        // TODO semana 3:
-        // pedir nombre de fichero o usar uno fijo
-        // llamar a la clase encargada de guardar
-        // controlar posibles errores
+        try {
+            GestorFicheros.guardarPersonaje(jugador);
+        } catch (IOException e) {
+            System.out.println("No se ha podido guardar el personaje.");
+            e.printStackTrace();
+        }
     }
 
     private void cargarPersonaje() {
-        // TODO semana 3:
-        // pedir nombre de fichero o usar uno fijo
-        // cargar personaje desde fichero
-        // sustituir this.jugador por el cargado
-        // controlar posibles errores
+        try {
+            jugador = GestorFicheros.cargarPersonaje();
+        } catch (IOException e) {
+            System.out.println("No se ha podido cargar el personaje.");
+            e.printStackTrace();
+        }
     }
 
     private boolean combatir(Enemigo enemigo) {
+        System.out.println("Comienza la pelea");
+
+        boolean turnoJugador = true;
+        boolean finalizado = false;
+
+        while (!finalizado) {
+            if (turnoJugador) {
+                enemigo.recibirDanio(jugador.getAtaque());
+                if (!enemigo.estaVivo()) {
+                    finalizado = true;
+                    System.out.println("El jugador ha ganado! Le queda de vida: " + jugador.getVida());
+                }
+            } else {
+                jugador.recibirDanho(enemigo.getAtaque());
+                if (jugador.getVida()<=0) {
+                    System.out.println("El jugador ha perdido!");
+                    finalizado = true;
+                }
+            }
+            turnoJugador = !turnoJugador;
+        }
+
+
         // TODO semana 3:
         // combate simple:
         // jugador y enemigo se atacan alternativamente hasta que uno muere.
