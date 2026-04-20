@@ -212,6 +212,7 @@ public class Personaje {
                 throw new ObjetoNoDisponibleException(objeto);
             } else {
                 int cantidadTrasUsar = inventario.get(objeto)-1;
+                inventario.put(objeto, cantidadTrasUsar);
                 System.out.println("Usando " + objeto + ". Quedan " + cantidadTrasUsar);
                 if (cantidadTrasUsar==0) {
                     System.out.println("Eliminando el objeto del inventario.");
