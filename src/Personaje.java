@@ -69,9 +69,9 @@ public class Personaje {
                 "\n\tInventario=" + inventarioEnString.toString());
     }
 
-    public void descansar() throws VidaAlMaximoException {
+    public void descansar() throws VidaYaCompletaException {
         if (vida==vidaMax) {
-            throw new VidaAlMaximoException(vida);
+            throw new VidaYaCompletaException(vida);
         } else {
             vida = vidaMax;
         }

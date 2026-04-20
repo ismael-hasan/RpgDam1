@@ -1,11 +1,11 @@
-public class VidaAlMaximoException extends Exception {
+public class VidaYaCompletaException extends Exception {
     private int vidaActual;
 
     public int getVidaActual() {
         return vidaActual;
     }
 
-    public VidaAlMaximoException(int vidaActual) {
+    public VidaYaCompletaException(int vidaActual) {
         this.vidaActual = vidaActual;
     }
 }

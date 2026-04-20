@@ -58,7 +58,7 @@ public class Juego {
                 case 3:
                     try {
                         jugador.descansar();
-                    } catch (VidaAlMaximoException vame) {
+                    } catch (VidaYaCompletaException vame) {
                         System.out.println("No se puede descansar. La vida está al máximo: " + vame.getVidaActual());
                     }
                     break;
