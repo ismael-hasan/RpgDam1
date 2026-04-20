@@ -3,11 +3,17 @@ public class Enemigo {
     private String nombre;
     private int vida;
     private int ataque;
+    private int vidaMaxima;
 
     public Enemigo(String nombre, int vida, int ataque) {
         this.nombre = nombre;
         this.vida = vida;
         this.ataque = ataque;
+        this.vidaMaxima = vida;
+    }
+
+    public int getVidaMaxima() {
+        return vidaMaxima;
     }
 
     public void mostrarInfo() {

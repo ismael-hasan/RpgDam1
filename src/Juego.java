@@ -118,7 +118,11 @@ public class Juego {
         System.out.println("Has encontrado a un enemigo:");
         enemigo.mostrarInfo();
 
-        combatir(enemigo);
+        try {
+            combatir(enemigo);
+        } catch (PersonajeMuertoException pme) {
+            System.out.println("No puedes atacar! Tu pj está muerto.");
+        }
     }
 
     private void mostrarEnemigosEncontrados() {
@@ -148,17 +152,19 @@ public class Juego {
         }
     }
 
-    private boolean combatir(Enemigo enemigo) {
+    private boolean combatir(Enemigo enemigo) throws PersonajeMuertoException {
         System.out.println("Comienza la pelea");
 
         boolean turnoJugador = true;
         boolean finalizado = false;
+        boolean ganaJugador = true;
 
         while (!finalizado) {
             if (turnoJugador) {
-                enemigo.recibirDanio(jugador.getAtaque());
+                jugador.atacar(enemigo);
                 if (!enemigo.estaVivo()) {
                     finalizado = true;
+                    ganaJugador = true;
                     System.out.println("El jugador ha ganado! Le queda de vida: " + jugador.getVida());
                 }
             } else {
@@ -166,17 +172,15 @@ public class Juego {
                 if (jugador.getVida()<=0) {
                     System.out.println("El jugador ha perdido!");
                     finalizado = true;
+                    ganaJugador = false;
                 }
             }
             turnoJugador = !turnoJugador;
         }
 
-
-        // TODO semana 3:
-        // combate simple:
-        // jugador y enemigo se atacan alternativamente hasta que uno muere.
-        // Devuelve "true" si el jugador gana, "false" si el jugador muere.
-        // El jugador gana una XP equivalente a los puntos de vida del enemigo.
-        return true;
+        if (ganaJugador) {
+            jugador.ganarExperiencia(enemigo.getVidaMaxima());
+        }
+        return ganaJugador;
     }
 }
