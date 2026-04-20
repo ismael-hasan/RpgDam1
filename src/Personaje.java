@@ -166,6 +166,42 @@ public class Personaje {
         return inventario.containsKey(objeto);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public int getVidaMax() {
+        return vidaMax;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public int getAtaque() {
+        return ataque;
+    }
+
+    public int getDefensa() {
+        return defensa;
+    }
+
+    public int getNivel() {
+        return nivel;
+    }
+
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public HashSet<String> getHabilidades() {
+        return habilidades;
+    }
+
+    public HashMap<String, Integer> getInventario() {
+        return inventario;
+    }
+
     public void usarObjeto(String objeto) throws ObjetoNoDisponibleException {
 
         if (!inventario.containsKey(objeto)) {
@@ -183,6 +219,7 @@ public class Personaje {
                 }
             }
         }
+
 
     }
 }
